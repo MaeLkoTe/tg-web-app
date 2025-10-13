@@ -1,4 +1,4 @@
-First tg-web-App by MaeLkoTe
+First **tg-web-App** by MaeLkoTe
 
 That tg app complete that functions:
   1) View balance of user address
