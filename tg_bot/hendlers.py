@@ -18,4 +18,4 @@ async def cmd_start(message: Message):
     await message.answer(text=f"Привет, {message.from_user.first_name}",
                          reply_markup=builder.as_markup()
     )
-    
+
