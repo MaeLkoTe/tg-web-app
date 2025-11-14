@@ -1,0 +1,35 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Arial", sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    color: #144bcd;
+}
+
+.container {
+  width: 510px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.address {
+  background-color: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.address-label {
+  color: #6653d9;
+}
+
+.address-ton {
+  border-bottom: 1px solid #6653d9;
+  color: #333333;
+}
+
+h1 {
+    border-bottom: 2px solid #cccccc;
+    text-align: center;
+}
+

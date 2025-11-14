@@ -1,2 +1,4 @@
 tg_bot/.config.json
 .vscode/settings.json
+node_modules/
+
