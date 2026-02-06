@@ -11,8 +11,8 @@ interface EnvVariables {
 }
 
 export default (env: EnvVariables) => {
-    const isDev = env?.mode === "development";
-    const isProd = process.env.NODE_ENV === "production";
+    const isDev = env.mode === "development";
+    const isProd = env.mode === "production";
 
     const config: webpack.Configuration & { devServer?: DevServerConfiguration } = {
         mode: env.mode ?? 'development',
