@@ -18,7 +18,7 @@ export default (env: EnvVariables) => {
         mode: env.mode ?? 'development',
         entry: path.resolve(__dirname, 'src', 'index.ts'),
         output: {
-            publicPath: isProd ? "/tg-web-app/" : "/",
+            publicPath: isProd ? "auto" : "/",
             path: path.resolve(__dirname, 'build'),
             filename: '[name].[contenthash].js',
             clean: true
