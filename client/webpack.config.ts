@@ -12,11 +12,13 @@ interface EnvVariables {
 
 export default (env: EnvVariables) => {
     const isDev = env?.mode === "development";
+    const isProd = process.env.NODE_ENV === "production";
 
     const config: webpack.Configuration & { devServer?: DevServerConfiguration } = {
         mode: env.mode ?? 'development',
         entry: path.resolve(__dirname, 'src', 'index.ts'),
         output: {
+            publicPath: isProd ? "/tg-web-app/" : "/",
             path: path.resolve(__dirname, 'build'),
             filename: '[name].[contenthash].js',
             clean: true
