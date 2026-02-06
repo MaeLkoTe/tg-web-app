@@ -2,28 +2,82 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device=width", uesr-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title ТонЧекер></title>
-    <link rel="stylesheet" href="style.css">
-<script defer src="main.5cd57ad153824c6feae2.js"></script></head>
+    <title>TонЧекер</title>
+    <link href="../src/styles.css" rel="stylesheet">
+<script defer src="main.2414da0f7bc2d4787d10.js"></script></head>
 <body>
-    <header class="">
-        <div class="container">
-            <h1>TonChecker</h1>
-            <p>Проверка баланса любого адресса Ton</p>
-            <img src="">
+    <header class="flex flex-col items-center">
+        <div class="h-[35vh] w-full flex items-center justify-around bg-gradient-to-br from-[#0b1b4d] via-[#3b4cc0] to-[#c98bff]">
+            <h1 class="relative text-white text-5xl sm:text-8xl font-semibold text-center">
+                <span class="absolute inset-0 blur-2xl opacity-30 bg-white"></span>
+                <span class="relative">
+                    blockchain<br>explorer
+                </span>
+            </h1>
         </div>
-        <div class="container">
-        <h1 class="inner-heading">Введите адресс кошелька:</h1>
-        <form action="" method="post" class="address">
-            <label>
-                address<input type="text" name="address">
-            </label> 
-            <input type="submit" value="Проверить!">
+        <form class="w-full px-4 -mt-10 z-10 relative" action="/" method="POST">
+            <div class="mx-auto max-w-[90vw] flex items-center gap-3 rounded-full bg-white/70 backdrop-blur-md ring-1 ring-white/60 shadow-lg shadow-black/10 px-4 py-3">
+                <svg class="h-5 w-5 text-slate-900/70" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M21 21l-4.3-4.3m1.8-5.2a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <input class="w-full bg-transparent outline-none text-slate-900 placeholder:text-slate-500" type="text" id="address" name="address" placeholder="Enter address / hash"/>
+                <button type="button" value="Круг" class="grid place-items-center h-9 w-9 rounded-full text-slate-900/70 hover:bg-white/60 active:scale-95 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="mt-4 flex justify-center">
+                <label for="testnet" class="inline-flex items-center gap-3 rounded-full bg-white/70 backdrop-blur-md ring-1 ring-white/60 shadow-lg shadow-black/10 px-4 py-2 cursor-pointer select-none">
+                    <span class="text-sm font-medium text-slate-900/80">testnet</span>
+                    <span class="relative inline-flex h-6 w-11 shrink-0 items-center">
+                        <input id="testnet" type="checkbox" class="peer absolute inset-0 h-full w-full cursor-pointer opacity-0" />
+                        <span class="block h-6 w-11 rounded-full bg-slate-900/20 ring-1 ring-slate-900/10 transition-colors peer-checked:bg-indigo-600/70"></span>
+                        <span class="pointer-events-none absolute left-1 top-1 block h-4 w-4 rounded-full bg-white shadow transition-transform duration-200 peer-checked:translate-x-5"></span>
+                    </span>
+                </label>
+            </div>
         </form>
-        </div>
+
+        <section class="mt-6 w-full px-4">
+            <div class="mx-auto max-w-md">
+                <p class="mb-3 text-sm font-medium text-slate-700">Recent Searches</p>
+
+                <!-- Last viewed transaction -->
+                <div class="flex items-center">
+                    <!-- Icon -->
+                    <div class="">
+                        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                        <path d="M4 7h16M4 12h16M4 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    
+                    <!-- Text -->
+                    <div class="flex-1">
+                        <p class="text-sm font-medium text-slate-900">Transaction</p>
+                        <p class="text-xs text-slate-600 truncate">
+                        0x789a...ef01
+                        </p>
+                    </div>
+                    
+                <!-- Arrow -->
+                    <svg class="h-5 w-5 text-slate-400 shrink-0" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
     </header>
+
+    <main class="max-w-4xl mx-auto">    
+    </main>
+    <nav class="flex gap-3 justify-around">
+        <button class="cursor-pointer">Домой</button>
+        <button class="cursor-pointer">Поиск</button>
+        <button class="cursor-pointer">История</button>
+        <button class="cursor-pointer">Статистика</button>
+        <button class="cursor-pointer">Настройки</button>
+    </nav>
 </body>
-</html>

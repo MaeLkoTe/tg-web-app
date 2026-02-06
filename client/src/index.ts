@@ -1,3 +1,4 @@
+import "./styles.css";
 import { calc } from "./test"
 
 console.log("Hello, World!");
