@@ -17,7 +17,7 @@ It telegram web-app that resolve, опишите какую задачу он р
 - 
 
 ## Using
-You can using my app via [site](https://maelkote.github.io/tg-web-app/client/build/index)
+You can using my app via [site](https://maelkote.github.io/tg-web-app/)
 
 Установите npm-пакет с помощью команды:
 ```sh
