@@ -1,10 +1,47 @@
 import "./styles.css";
 import { calc } from "./test"
 
-console.log("Hello, World!");
-console.log(calc(501, 100));
+function openPage(pageId: string) {
+    const pages = document.querySelectorAll(".page");
+    pages.forEach(page => {
+        page.classList.add("hidden");
+    });
+    const page = document.getElementById(pageId) || document.getElementById("page-home");
+    if (page) {
+        page.classList.remove("hidden");
+    }
+}
 
-const address = document.querySelector(".address-ton");
-const form = document.querySelector('.subscription');
+function hashProcessing() {
+    const hash = window.location.hash.substring(1) || "home";
+    openPage("page-" + hash);
+    buttonClick(hash);
+}
 
-console.log(address, form)
+function buttonClick(buttonAtr: string) {
+    const navButtons = document.querySelectorAll("button[data-page]");
+    navButtons.forEach(button => {
+        button.classList.remove("bg-gray-300/60");
+        
+        button.addEventListener("click", () => {
+        setActiveButton(button);
+
+        const pageId = button.getAttribute("data-page");
+        if (pageId) {
+            window.location.hash = pageId;}
+        });
+    })
+}
+
+function setActiveButton(button: Element) {
+    
+
+    button.classList.remove("hover:bg-gray-300/60");
+    button.classList.add("bg-gray-300/60");
+}
+
+
+window.addEventListener("hashchange", hashProcessing);
+window.addEventListener("DOMContentLoaded", hashProcessing);
+
+console.log(calc(5, 3));   
