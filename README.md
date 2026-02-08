@@ -76,7 +76,7 @@ I developed my project for educational purposes
 
 ## 🧭 Roadmap
 
-# 1. Требования и MVP-спецификация (TON)
+### 1. Требования и MVP-спецификация (TON)
 - [x] Определить сеть и окружения
   - [x] Mainnet
   - [x] Testnet
@@ -103,7 +103,7 @@ I developed my project for educational purposes
 
 ---
 
-# 2. Проектный каркас и инструменты
+### 2. Проектный каркас и инструменты
 - [x] Создан GitHub-репозиторий
 - [ ] Определена структура проекта (frontend / backend)
 - [x] Подключён Webpack (или другой сборщик)
@@ -118,7 +118,7 @@ I developed my project for educational purposes
 
 ---
 
-# 3. Frontend UI (без backend-данных)
+### 3. Frontend UI (без backend-данных)
 - [x] Общая дизайн-система
   - [x] Цвета/темы
   - [x] Типографика
@@ -142,7 +142,7 @@ I developed my project for educational purposes
 
 ---
 
-# 4. Интеграция Telegram Mini App
+### 4. Интеграция Telegram Mini App
 - [x] Создан Telegram-бот
 - [ ] Подключение Mini App к боту
 - [ ] Получение initData в Mini App
@@ -153,7 +153,7 @@ I developed my project for educational purposes
 
 ---
 
-# 5. Backend MVP (TON API слой / BFF)
+### 5. Backend MVP (TON API слой / BFF)
 - [ ] Инициализация backend-проекта
 - [ ] Конфигурация env и секретов
 - [ ] Модуль работы с TON API провайдером
@@ -178,7 +178,7 @@ I developed my project for educational purposes
 
 ---
 
-# 6. Интеграция Frontend ↔ Backend
+### 6. Интеграция Frontend ↔ Backend
 - [ ] Подключение API на frontend
 - [ ] Реальный поиск
   - [ ] Авто-распознавание: address vs tx vs block
@@ -189,7 +189,7 @@ I developed my project for educational purposes
 
 ---
 
-# 7. Тестирование и CI
+### 7. Тестирование и CI
 - [ ] Unit-тесты
   - [ ] Валидация TON-адресов
   - [ ] Парсинг/нормализация tx/messages
@@ -202,7 +202,7 @@ I developed my project for educational purposes
 
 ---
 
-# 8. Docker и деплой
+### 8. Docker и деплой
 - [ ] Dockerfile (frontend)
 - [ ] Dockerfile (backend)
 - [ ] docker-compose (frontend + backend + redis опционально)
