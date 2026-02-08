@@ -2,17 +2,17 @@
 It telegram web-app that resolve, опишите какую задачу он решает. 1-3 предложения будет достаточно. Добавьте бейджи для важных статусов проекта: статус разработки (в разработке, на поддержке и т.д.), статус билда, процент покрытия тестами и тд.
 
 ## Содержание
-- [Technologies](#технологии)
-- [Начало работы](#начало-работы)
-- [Тестирование](#тестирование)
-- [Deploy и CI/CD](#deploy-и-ci/cd)
-- [Contributing](#contributing)
-- [To do](#to-do)
+- [Technologies](#Technologies)
+- [Using](#Using)
+- [Testing](#testing)
+- [Deploy и CI/CD](#Deploy-и-CICD)
+- [Roadmap](#-Roadmap)
 - [Contact me](#contact-me)
 
 ## Technologies
 - [Html](https://www.gatsbyjs.com/)
 - [Css](https://developer.mozilla.org/en-US/docs/Web/CSS)
+- [Tailwind](https://tailwindcss.com/docs/installation/tailwind-cli)
 - [TypeScript](https://www.typescriptlang.org/)
 - 
 
@@ -54,7 +54,7 @@ npm start
 npm run build
 ```
 
-## Тестирование
+## Testing
 Какие инструменты тестирования использованы в проекте и как их запускать. Например:
 
 Наш проект покрыт юнит-тестами Jest. Для их запуска выполните команду:
@@ -64,12 +64,6 @@ npm run test
 
 ## Deploy и CI/CD
 Расскажите, как развернуть приложение. Как запустить пайплайны и т.д.
-
-## Contributing
-Как помочь в разработке проекта? Как отправить предложение или баг-репорт. Как отправить доработку (оформить pull request, какие стайлгайды используются). Можно вынести в отдельный файл — [Contributing.md](./CONTRIBUTING.md).
-
-## FAQ 
-None
 
 ### Why I developed it?
 I developed my project for educational purposes
