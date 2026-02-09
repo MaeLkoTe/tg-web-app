@@ -15,31 +15,29 @@ function openPage(pageId: string) {
 function hashProcessing() {
     const hash = window.location.hash.substring(1) || "home";
     openPage("page-" + hash);
-    buttonClick(hash);
+    setActiveButton(hash);
 }
 
-function buttonClick(buttonAtr: string) {
-    const navButtons = document.querySelectorAll("button[data-page]");
-    navButtons.forEach(button => {
-        button.classList.remove("bg-gray-300/60");
-        
-        button.addEventListener("click", () => {
-        setActiveButton(button);
+function setActiveButton(buttonId: string) {
+    const pagesButtons = Array.from(document.querySelectorAll("button[data-page]"));
+    const button = document.querySelector(`nav [data-page="${buttonId}"]`);
+
+    pagesButtons.forEach(button =>{
+        button.classList.remove("bg-gray-300/60")
+    });
+
+    button.classList.add("bg-gray-300/60");
+}
+
+const navButtons = document.querySelectorAll("button[data-page]");
+navButtons.forEach(button => {
+    button.addEventListener("click", () => {
 
         const pageId = button.getAttribute("data-page");
         if (pageId) {
             window.location.hash = pageId;}
-        });
-    })
-}
-
-function setActiveButton(button: Element) {
-    
-
-    button.classList.remove("hover:bg-gray-300/60");
-    button.classList.add("bg-gray-300/60");
-}
-
+    });
+})
 
 window.addEventListener("hashchange", hashProcessing);
 window.addEventListener("DOMContentLoaded", hashProcessing);

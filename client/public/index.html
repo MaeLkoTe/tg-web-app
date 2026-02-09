@@ -42,11 +42,12 @@
                 </div>
             </form>
         </header>
+
         <main class="max-w-4xl mx-auto">    
             <section class="mt-6 w-full px-4">
                 <div class="mx-auto max-w-md">
                     <button data-page="history" class="cursor-pointer">
-                        <p class="mb-2 text-base font-medium text-slate-700">Recent Searches</p>
+                        <p class="text-xm text-black">Recent Searhes ></p>
                     </button>
                     <!-- Last viewed transaction -->
                     <div class="flex items-center bg-white/70 backdrop-blur-md ring-1 ring-white/60 rounded-full shadow-lg shadow-black/10 cursor-pointer gap-3 px-4 py-3">
@@ -82,11 +83,11 @@
             </svg>
             <p class="text-xs text-black">Home</p>
         </button>
-        <button data-page="search" class="min-w-16 flex flex-col items-center cursor-pointer hover:bg-gray-300/60 ring-1 ring-gray-200 rounded-3xl px-2 py-1">
+        <button data-page="history" class="min-w-16 flex flex-col items-center cursor-pointer hover:bg-gray-300/60 ring-1 ring-gray-200 rounded-3xl px-2 py-1">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
             </svg>
-            <p class="text-xs text-black">Search</p>
+            <p class="text-xs text-black">History</p>
         </button>    
         <button data-page="statistic" class="min-w-16 flex flex-col items-center cursor-pointer hover:bg-gray-300/60 ring-1 ring-gray-200 rounded-3xl px-2 py-1">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -102,11 +103,6 @@
             <p class="text-xs text-black">Settings</p>
         </button>
     </nav>
-
-    <!-- Search page -->
-    <section id="page-search" class="page hidden">
-        <div class="bg-amber-100">Search</div>
-    </section>
 
     <!-- History page -->
     <section id="page-history" class="page hidden">
