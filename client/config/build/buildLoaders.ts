@@ -7,6 +7,7 @@ export function buildLoaders(optioins: BuildOptions): ModuleOptions["rules"] {
             use: "ts-loader",
             exclude: /node_modules/,
             }
+            
     const cssLoader = {
             test: /\.css$/,
             use: [

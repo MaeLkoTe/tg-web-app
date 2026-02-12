@@ -5,10 +5,12 @@ import webpack from "webpack";
 import { PassThrough } from 'stream';
 
 export function buildPlugins({paths, mode}: BuildOptions): Configuration["plugins"] {
-    const plugins = [new HtmlWebpackPlugin({ template: paths.html })]
+    const plugins: Configuration["plugins"] = [
+        new HtmlWebpackPlugin({ template: paths.html }),
+    ]
 
     if (mode === "development") {
-        new webpack.ProgressPlugin()
+        plugins.push(new webpack.ProgressPlugin())
     }
 
     if (mode === "production") {

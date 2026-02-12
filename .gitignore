@@ -17,7 +17,6 @@ pnpm-debug.log*
 # ===== Node / Webpack =====
 **/node_modules/
 dist/
-build/
 coverage/
 .cache/
 .parcel-cache/
