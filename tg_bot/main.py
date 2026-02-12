@@ -1,13 +1,14 @@
 import asyncio
 import logging
 from aiogram import Bot, Dispatcher
-import json
+from dotenv import dotenv_values
+import os
 from hendlers import router
 
+token = dotenv_values(".env")["TOKEN"]
+
 logging.basicConfig(level=logging.INFO)
-with open(r'C:\Users\rcher\VsCode\tg-web-app\tg_bot\.config.json', 'r') as config_file:
-    config_data = json.load(config_file)
-    bot = Bot(token=config_data["bot_token"])
+bot = Bot(token=token)
 dp = Dispatcher()
 dp.include_router(router)
 

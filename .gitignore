@@ -17,6 +17,7 @@ pnpm-debug.log*
 # ===== Node / Webpack =====
 **/node_modules/
 dist/
+build/
 coverage/
 .cache/
 .parcel-cache/
@@ -31,7 +32,7 @@ coverage/
 !.env.template
 
 # ===== Python =====
-__pycache__/
+**/__pycache__/
 *.py[cod]
 *.pyd
 *.pyo
