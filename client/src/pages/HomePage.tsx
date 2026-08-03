@@ -1,12 +1,11 @@
 import React, {useState } from "react";
 import { RecentSearchItem } from "../components/RecentSearchItem";
+import { HeaderContainer } from "../components/HeaderContainer";
+import { HomePageProps } from "../types/types";
 
-const MOCK_RECENT_SEARCHES: { id: number, title: string, value: string}[] = [
-    { id: 1, title: "Address", value: "0x123..." },
-    { id: 2, title: "Address", value: "EQB..." }
-]
 
-export const HomePage = () => {
+
+export const HomePage = ({ onChangePage, RECENT_SEARCHES_LIST }: HomePageProps) => {
 
     const [inputField, setInputField] = useState("");
     const [testNetState, setTestNetState] = useState(false);
@@ -29,6 +28,7 @@ export const HomePage = () => {
 
     return (
         <div>
+            <HeaderContainer height="h-[35vh]" title={<>ton<br/>explorer</>}/>
             <form className={""} onSubmit={handleSubmit}>
                 <input 
                     type="text"
@@ -50,12 +50,12 @@ export const HomePage = () => {
                 <p>{errorText}</p>
                 
             </form>
-            {MOCK_RECENT_SEARCHES.map((item) => (
+            {RECENT_SEARCHES_LIST.map((item) => (
                 <RecentSearchItem
                     key={item.id}
                     title={item.title}
                     value={item.value}
-                    onClick={() => {}}
+                    onClick={() => onChangePage("history")}
                 />
             )
             )}
