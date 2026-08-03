@@ -7,6 +7,10 @@ from hendlers import router
 
 token = dotenv_values(".env")["TOKEN"]
 
+if not token:
+    logging.error("Token not found in .env file")
+    exit(1)
+
 logging.basicConfig(level=logging.INFO)
 bot = Bot(token=token)
 dp = Dispatcher()

@@ -9,7 +9,7 @@ router = Router()
 async def cmd_start(message: Message):
     builder = InlineKeyboardBuilder()
     text = ["Проверить баланс"]
-    web_app = WebAppInfo(url="https://telegram.org/apps")
+    web_app = WebAppInfo(url="https://maelkote.github.io/tg-web-app/")
     for i in text:
         builder.add(InlineKeyboardButton(
             text=i, 
