@@ -11,10 +11,13 @@ const NAV_ITEMS: { id: Page; title: string; svg: React.ReactNode }[] = [
 ];
 
 export const BottomNav = ({ activePage, onChangePage }: BottomNavProps) => {
+
+    const navClassName = "flex gap-3 justify-around fixed bottom-4 left-0 right-0 border-t-2 border-gray-200 bg-gray-300/30 rounded-2xl mx-3.5 py-1"
+
     return (
-        <nav>
+        <nav className={navClassName}>
             {NAV_ITEMS.map((item) => (
-                <NavItem
+                <NavItem 
                     key={item.id}
                     title={item.title}
                     content={item.svg}

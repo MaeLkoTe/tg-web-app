@@ -1,9 +1,8 @@
 import React, {useState } from "react";
-import { RecentSearchItem } from "../components/RecentSearchItem";
-import { HeaderContainer } from "../components/HeaderContainer";
-import { HomePageProps } from "../types/types";
-
-
+import { RecentSearchItem } from "../RecentSearchItem";
+import { HeaderContainer } from "../HeaderContainer";
+import { HomePageProps } from "../../types/types";
+import { MySwitchButton } from "../UI/button/MySwitchButton";
 
 export const HomePage = ({ onChangePage, RECENT_SEARCHES_LIST }: HomePageProps) => {
 
@@ -33,19 +32,20 @@ export const HomePage = ({ onChangePage, RECENT_SEARCHES_LIST }: HomePageProps) 
                 <input 
                     type="text"
                     value={inputField}
+                    placeholder="Input addres"
                     onChange={(e) => setInputField(e.target.value)}
                 />
 
                 <button 
-                    type="submit">
-                    {">"}
+                    type="submit"
+                    className="grid place-items-center h-9 w-9 rounded-full text-slate-900/70 hover:bg-white/60 active:scale-95 transition"
+                >
+                    <svg className="h-5 w-5 text-slate-400 shrink-0" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
                 </button>
                 
-                <input
-                    type="checkbox"
-                    checked={testNetState}
-                    onChange={handleOnChange}
-                />
+                <MySwitchButton id="testnet"/>
 
                 <p>{errorText}</p>
                 

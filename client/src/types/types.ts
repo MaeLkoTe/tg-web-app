@@ -1,7 +1,15 @@
-import { HistoryPage } from './../pages/HistoryPage';
+import { HistoryPage } from '../components/pages/HistoryPage';
 import React from "react";
 
 export type Page = "home" | "history" | "stats" | "settings";
+export type SearchType = "address" | "hash" | "block"
+
+export type RecentSearchesList = { 
+    id: number,
+    title: string, 
+    value: string, 
+    type: SearchType, 
+    timestamp: number}[]
 
 export interface NavItemProps {
     title: string;
@@ -25,10 +33,12 @@ export interface BottomNavProps extends NavigationProp {
 }
 
 export interface HomePageProps extends NavigationProp{
-    RECENT_SEARCHES_LIST: { id: number, title: string, value: string}[]
+    RECENT_SEARCHES_LIST: RecentSearchesList
 }
 
-export type HistoryPageProp = Omit<HomePageProps, "onChangePage">
+export interface HistoryPageProp{
+    RECENT_SEARCHES_LIST: RecentSearchesList
+}
 
 export interface HeaderContainerProps {
     height?: string;

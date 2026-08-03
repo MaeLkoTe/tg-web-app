@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { BottomNav } from "./components/BottomNav";
-import { HomePage, HistoryPage, StatsPage, SettingsPage } from "./pages/import";
-import { Page } from "./types/types";
+import { HomePage, HistoryPage, StatsPage, SettingsPage } from "./components/pages/import";
+import { Page, RecentSearchesList} from "./types/types";
 
-const MOCK_RECENT_SEARCHES: { id: number, title: string, value: string}[] = [
-    { id: 1, title: "Address", value: "0x123..." },
-    { id: 2, title: "Address", value: "EQB..." }
+const MOCK_RECENT_SEARCHES: RecentSearchesList = [
+    { id: 1, title: "Address", value: "0x123...", type: "address", timestamp: Date.now()},
+    { id: 2, title: "Address", value: "EQB...", type: "address", timestamp: Date.now()+1 }
 ]
 
 export const App = () => {
@@ -14,9 +14,10 @@ export const App = () => {
     
     return (
         <div>
-            {currentPage === "home" && <HomePage    onChangePage={setCurrentPage} 
-                                                    RECENT_SEARCHES_LIST={MOCK_RECENT_SEARCHES}
-                                                    />}
+            {currentPage === "home" && <HomePage    
+                                            onChangePage={setCurrentPage} 
+                                            RECENT_SEARCHES_LIST={MOCK_RECENT_SEARCHES}
+                                        />}
 
             {currentPage === "history" && <HistoryPage RECENT_SEARCHES_LIST={MOCK_RECENT_SEARCHES}></HistoryPage>}
             {currentPage === "stats" && <StatsPage></StatsPage>}

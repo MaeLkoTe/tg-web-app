@@ -1,4 +1,4 @@
-import { HeaderContainer } from "../components/HeaderContainer"
+import { HeaderContainer } from "../HeaderContainer"
 
 export const StatsPage = () => {
 
