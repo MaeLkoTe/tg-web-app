@@ -2,7 +2,8 @@ import { HistoryPage } from '../components/pages/HistoryPage';
 import React from "react";
 
 export type Page = "home" | "history" | "stats" | "settings";
-export type SearchType = "address" | "hash" | "block"
+export type SearchType = "address" | "hash" | "block";
+export type Language = "ru" | "en";
 
 export type RecentSearchesList = { 
     id: number,
@@ -43,4 +44,10 @@ export interface HistoryPageProp{
 export interface HeaderContainerProps {
     height?: string;
     title: React.ReactNode;
+}
+
+export interface OptionItemsProps {
+    title: string;
+    svg: React.ReactNode
+    component: React.ReactNode
 }
