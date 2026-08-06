@@ -57,6 +57,7 @@ export const HomePage = ({ onChangePage, RECENT_SEARCHES_LIST }: HomePageProps) 
                     <span className="text-sm font-medium text-slate-900/80">testnet</span>
                         <MySwitchButton 
                             id="testnet"
+                            checked={testNetState}
                             onChange={handleOnChange}    
                         />
                     </label>

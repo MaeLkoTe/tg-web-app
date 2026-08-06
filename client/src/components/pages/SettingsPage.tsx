@@ -1,21 +1,21 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { HeaderContainer } from "../HeaderContainer"
 import { MySelect } from "../UI/select/MySelect"
-import { Language } from "../../types/types"
+import { SettingsPageProps, Language
+
+ } from "../../types/types"
 import { OptionItem } from "../OptionItem"
 import { optionsSvg } from "../../icons/SettingsIcons"
 import { MySwitchButton } from "../UI/button/MySwitchButton"
+
 
 const languageOptions = [
     { value: "en", label: "English" },
     { value: "ru", label: "Русский" }
 ];
 
-export const SettingsPage = () => {
-
-    const [selectedLanguage, setLanguage] = useState<Language>("en")
-    const [isDarkMode, setDarkMode] = useState<boolean>(false)
+export const SettingsPage = ({selectedLanguage, setLanguage,  isDarkMode, setDarkMode}: SettingsPageProps) => {
 
     const OptionItems = [
         {
@@ -41,10 +41,24 @@ export const SettingsPage = () => {
         },
 ]
 
+    const darkModeToggle = () => {
+        if (isDarkMode) {
+            document.documentElement.classList.add("dark");
+            localStorage.setItem("is-dark-mode", "true")
+        } else { 
+            document.documentElement.classList.remove("dark") 
+            localStorage.setItem("is-dark-mode", "false")
+        }
+
+        
+    }
+
+    useEffect(darkModeToggle, [isDarkMode])
+
     return (
         <div className="">
             <HeaderContainer height="h-[22vh]" title="Settings"/>
-            <div className="flex flex-col mx-8 mt-2 px-5 py-2 rounded-2xl bg-white/70 backdrop-blur-md ring-1 ring-white/60 shadow-lg shadow-black/10">
+            <div className="flex flex-col mx-8 mt-2 px-5 py-2 rounded-2xl bg-white/70  backdrop-blur-md ring-1 ring-white/60 shadow-lg shadow-black/10">
                 {OptionItems.map((item) => (
                     <OptionItem 
                         key={item.id}

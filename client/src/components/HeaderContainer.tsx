@@ -2,7 +2,7 @@ import { HeaderContainerProps } from "../types/types";
 
 export const HeaderContainer = ({height, title}: HeaderContainerProps) => {
     
-    const headerDivStyle = `${height} w-full flex items-center justify-around bg-gradient-to-br from-[#0b1b4d] via-[#3b4cc0] to-[#c98bff]`
+    const headerDivStyle = `${height} w-full flex items-center justify-around bg-gradient-to-br from-[#0b1b4d] via-[#3b4cc0] to-[#c98bff] shadow-md dark:from-blue-900 dark:via-blue-950 dark:to-blue-950/60`
     
     return (
         <header className={headerDivStyle}>
