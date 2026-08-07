@@ -7,7 +7,7 @@ interface MySelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
 export const MySelect = ({options, ...props}: MySelectProps) => {
 
     return (
-        <select {...props}>
+        <select className="glass-select" {...props}>
             {options.map((item) => (
                 <option key={item.value} value={item.value}>{item.label}</option>
             )

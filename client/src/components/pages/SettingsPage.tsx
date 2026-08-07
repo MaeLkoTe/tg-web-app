@@ -2,12 +2,11 @@ import { useEffect, useState } from "react"
 
 import { HeaderContainer } from "../HeaderContainer"
 import { MySelect } from "../UI/select/MySelect"
-import { SettingsPageProps, Language
-
- } from "../../types/types"
+import { SettingsPageProps, Language, Settings } from "../../types/types"
 import { OptionItem } from "../OptionItem"
 import { optionsSvg } from "../../icons/SettingsIcons"
 import { MySwitchButton } from "../UI/button/MySwitchButton"
+import { error } from "console"
 
 
 const languageOptions = [
@@ -15,8 +14,7 @@ const languageOptions = [
     { value: "ru", label: "Русский" }
 ];
 
-export const SettingsPage = ({selectedLanguage, setLanguage,  isDarkMode, setDarkMode}: SettingsPageProps) => {
-
+export const SettingsPage = ({ settings, setSettings} : SettingsPageProps) => {
     const OptionItems = [
         {
             id: 1, 
@@ -25,8 +23,8 @@ export const SettingsPage = ({selectedLanguage, setLanguage,  isDarkMode, setDar
             component: <MySelect 
                             id="lang"
                             options={languageOptions}
-                            value={selectedLanguage}
-                            onChange={(e) => setLanguage(e.target.value as Language)}
+                            value={settings.selectedLanguage}
+                            onChange={(e) => setSettings({...settings, selectedLanguage: e.target.value as Language})}
                         />
         },
 
@@ -35,30 +33,16 @@ export const SettingsPage = ({selectedLanguage, setLanguage,  isDarkMode, setDar
             title: "Dark Mode",
             svg: optionsSvg.darkmode,
             component: <MySwitchButton
-                            checked={isDarkMode}
-                            onChange={(e) => setDarkMode(e.target.checked)}
+                            checked={settings.isDarkMode}
+                            onChange={(e) => {setSettings({...settings, isDarkMode: e.target.checked})}}
                         />
         },
 ]
 
-    const darkModeToggle = () => {
-        if (isDarkMode) {
-            document.documentElement.classList.add("dark");
-            localStorage.setItem("is-dark-mode", "true")
-        } else { 
-            document.documentElement.classList.remove("dark") 
-            localStorage.setItem("is-dark-mode", "false")
-        }
-
-        
-    }
-
-    useEffect(darkModeToggle, [isDarkMode])
-
     return (
         <div className="">
             <HeaderContainer height="h-[22vh]" title="Settings"/>
-            <div className="flex flex-col mx-8 mt-2 px-5 py-2 rounded-2xl bg-white/70  backdrop-blur-md ring-1 ring-white/60 shadow-lg shadow-black/10">
+            <div className="flex flex-col mx-8 mt-2 px-5 py-2 rounded-2xl ring-1 glass-panel">
                 {OptionItems.map((item) => (
                     <OptionItem 
                         key={item.id}

@@ -1,5 +1,3 @@
-import { SettingsPage } from './../components/pages/SettingsPage';
-import { HistoryPage } from '../components/pages/HistoryPage';
 import React from "react";
 
 export type Page = "home" | "history" | "stats" | "settings";
@@ -54,8 +52,11 @@ export interface OptionItemsProps {
 }
 
 export interface SettingsPageProps {
-    selectedLanguage: Language
-    setLanguage: React.Dispatch<React.SetStateAction<Language>>
+    settings: Settings,
+    setSettings: (settings: Settings) => void,
+}
+
+export interface Settings {
+    selectedLanguage: Language,
     isDarkMode: boolean
-    setDarkMode: React.Dispatch<React.SetStateAction<boolean>>
 }

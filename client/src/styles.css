@@ -3,5 +3,68 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 body {
-  @apply bg-gray-50 dark:bg-[#0B1121] transition-colors duration-300;
+  @apply bg-gray-50 dark:bg-[#0B1121] dark:text-blue-50 transition-colors duration-300;
+}
+
+@layer components {
+  /* 🎨 Универсальное стекло для форм, настроек и списков */
+  .glass-panel {
+    @apply bg-white/70 backdrop-blur-md ring-1 ring-white/60 shadow-lg shadow-black/10 transition-colors duration-300 dark:bg-blue-900/70 dark:ring-blue-800/40;
+  }
+  
+  /* 📝 Стили для текста (заголовки и основные данные) */
+  .text-main {
+    @apply text-slate-900/80 transition-colors duration-300 dark:text-blue-50 ;
+  }
+  
+  /* 🕰️ Стили для второстепенного текста (время, подписи) */
+  .text-muted {
+    @apply text-slate-500 transition-colors duration-300 dark:text-blue-300/70;
+  }
+  
+  /* 🧭 Уникальный стиль для нижней панели */
+  .bottom-nav {
+    @apply bg-gray-300/30 border-t-2 shadow-lg shadow-black/10 border-gray-200 backdrop-blur-md transition-colors duration-300 dark:bg-blue-700/40 dark:border-blue-900/50;
+  }
+
+  .stats-container {
+    @apply mx-8 my-6 grid grid-cols-1 lg:grid-cols-3 gap-6;
+  }
+
+  /* 📈 Блок графика (занимает 2 колонки на ПК) */
+  .chart-card {
+    @apply lg:col-span-2 rounded-2xl p-6 min-h-[300px] flex items-center justify-center;
+  }
+
+  /* 📋 Правая колонка со списком метрик */
+  .metrics-card {
+    @apply rounded-2xl p-6 flex flex-col;
+  }
+
+  /* ➖ Строка отдельной метрики (с автоматическим разделителем снизу) */
+  .metric-row {
+    @apply flex justify-between items-center py-4 border-b border-gray-200/50 dark:border-blue-900/50 last:border-0;
+  }
+
+  /* 🏷️ Текст названия метрики */
+  .metric-label {
+    @apply text-slate-500 font-medium dark:text-blue-300/70;
+  }
+
+  /* 💎 Текст значения метрики */
+  .metric-value {
+    @apply text-slate-900 font-bold text-lg dark:text-blue-50;
+  }
+
+  /* 🔽 Универсальный выпадающий список */
+  .glass-select {
+    @apply bg-gray-50/50 border border-gray-200/50 text-slate-900 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500/40 transition-colors duration-300 cursor-pointer;
+    /* Стили для тёмной темы "Deep Ocean" */
+    @apply dark:bg-blue-950/40 dark:border-blue-800/50 dark:text-blue-50;
+  }
+
+  /* 📋 Стилизация самих опций списка */
+  .glass-select option {
+    @apply bg-white text-slate-900 dark:bg-[#0B1121] dark:text-blue-50;
+  }
 }

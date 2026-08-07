@@ -12,7 +12,7 @@ const NAV_ITEMS: { id: Page; title: string; svg: React.ReactNode }[] = [
 
 export const BottomNav = ({ activePage, onChangePage }: BottomNavProps) => {
 
-    const navClassName = "flex justify-around items-center fixed bottom-4 left-0 right-0 mx-4.5 py-2 border-t border-gray-200 bg-gray-300/30 backdrop-blur-md rounded-2xl shadow-lg shadow-black/10 z-50"
+    const navClassName = "flex justify-around items-center fixed bottom-4 left-0 right-0 mx-4.5 py-2 rounded-2xl z-50 bottom-nav"
 
     return (
         <nav className={navClassName}>
