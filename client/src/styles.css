@@ -28,7 +28,14 @@ body {
   }
 
   .stats-container {
-    @apply mx-8 my-6 grid grid-cols-1 lg:grid-cols-3 gap-6;
+    @apply mx-8 mt-6 mb-0 grid grid-cols-1 lg:grid-cols-3 gap-6 lg:mb-6;
+    padding-bottom: calc(7rem + env(safe-area-inset-bottom));
+  }
+
+  @media (min-width: 64rem) {
+    .stats-container {
+      padding-bottom: 0;
+    }
   }
 
   /* 📈 Блок графика (занимает 2 колонки на ПК) */
