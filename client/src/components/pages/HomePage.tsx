@@ -4,6 +4,7 @@ import { HeaderContainer } from "../HeaderContainer";
 import { HomePageProps } from "../../types/types";
 import { MySwitchButton } from "../UI/button/MySwitchButton";
 import { fetchAccountData } from "../../api"
+import { Address } from "@ton/core";
 
 export const HomePage = ({ onChangePage, RECENT_SEARCHES_LIST }: HomePageProps) => {
 
@@ -11,16 +12,55 @@ export const HomePage = ({ onChangePage, RECENT_SEARCHES_LIST }: HomePageProps) 
     const [testNetState, setTestNetState] = useState(false);
     const [errorText, setErrorText] = useState("")
     
-    const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (inputField.trim() === ""){
-            setErrorText("Поле адресса не может быть пустым")
+        const address = inputField.trim();
+        const validationError = validateTonAddress(address, testNetState);
+
+        if (validationError !== null) {
+            setErrorText(validationError);
+            const request1 = {testnet: testNetState, address}
+            const response1 = await fetchAccountData(request1)
+            return;
         } else {
-            const request = {testnet: testNetState, address: inputField}
-            const response = fetchAccountData(request)
             setErrorText("")
+            const request = {testnet: testNetState, address}
+            const response = await fetchAccountData(request)
+            
             console.log("Отправлено", response)
+        }
+    }
+
+    const validateTonAddress = function (
+        value: string,
+        testnet: boolean,
+    ): string | null {
+        const address = value.trim();
+
+        if (!address) {
+            return "Введите адрес";
+        }
+
+        try {
+            if (address.includes(":")) {
+                // Строго проверяем raw-формат перед разбором.
+                if (!/^-?\d+:[a-fA-F0-9]{64}$/.test(address)) {
+                    return "Некорректный raw-адрес";
+                }
+
+                Address.parseRaw(address);
+            } else {
+                const parsed = Address.parseFriendly(address);
+
+                if (parsed.isTestOnly && !testnet) {
+                    return "Это testnet-адрес. Включите testnet";
+                }
+            }
+
+            return null;
+        } catch {
+            return "Некорректный TON-адрес. Проверьте скопированное значение";
         }
     }
 

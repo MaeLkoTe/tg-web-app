@@ -17,7 +17,7 @@ export function validationStart() {
         }
         address = address.trim();
 
-        const validationResult = validateTonAddress(address);
+        const validationResult = "some error";
         if (!validationResult) {
             clearError(changableElements);
             console.log("Valid address:", address);
@@ -26,27 +26,6 @@ export function validationStart() {
             return;
         }
     });
-}
-
-const validateTonAddress = function (address: string): string | null {
-    const prefixAddressRegex = /^(?:UQ|EQ)/;
-    const consistOfBase64Regex = /^[a-zA-Z0-9-_]+$/;
-    const validLength = address.length === 48;
-
-    if (!address){
-        return "Address field is empty";
-    }
-    if (!prefixAddressRegex.test(address)) {
-        return "Address is not starting with UQ or EQ";
-    }
-    if (!validLength) {
-        return "Address length is not valid";
-    }
-    if (!consistOfBase64Regex.test(address)) {
-        return "Address should consist of base64url characters";
-    }
-
-    return null;
 }
 
 const showError = function ({divInput, errorElement}: {divInput: HTMLElement, errorElement: HTMLElement}, message: string) {

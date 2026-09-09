@@ -7,7 +7,10 @@ import { PassThrough } from 'stream';
 export function buildPlugins({paths, mode}: BuildOptions): Configuration["plugins"] {
     const plugins: Configuration["plugins"] = [
         new HtmlWebpackPlugin({ template: paths.html }),
-    ]
+        new webpack.ProvidePlugin({
+            Buffer: ["buffer", "Buffer"],
+        }),
+    ];
 
     if (mode === "development") {
         plugins.push(new webpack.ProgressPlugin())
