@@ -5,12 +5,13 @@ import { HomePageProps } from "../../types/types";
 import { MySwitchButton } from "../UI/button/MySwitchButton";
 import { fetchAccountData } from "../../api"
 import { Address } from "@ton/core";
+import { useNavigate } from "react-router-dom";
 
 export const HomePage = ({ onChangePage, RECENT_SEARCHES_LIST }: HomePageProps) => {
-
     const [inputField, setInputField] = useState("");
     const [testNetState, setTestNetState] = useState(false);
     const [errorText, setErrorText] = useState("")
+    const navigate = useNavigate();
     
     const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -20,15 +21,12 @@ export const HomePage = ({ onChangePage, RECENT_SEARCHES_LIST }: HomePageProps) 
 
         if (validationError !== null) {
             setErrorText(validationError);
-            const request1 = {testnet: testNetState, address}
-            const response1 = await fetchAccountData(request1)
             return;
         } else {
             setErrorText("")
-            const request = {testnet: testNetState, address}
-            const response = await fetchAccountData(request)
+            navigate(`/address/${encodeURIComponent(address)}?testnet=${testNetState}`)
             
-            console.log("Отправлено", response)
+            console.log("Переход на страницу address")
         }
     }
 
@@ -82,12 +80,9 @@ export const HomePage = ({ onChangePage, RECENT_SEARCHES_LIST }: HomePageProps) 
                         onChange={(e) => setInputField(e.target.value)}
                     />
 
-                    
-
                     <button 
                         type="submit"
                         className="grid place-items-center h-9 w-9 rounded-full text-slate-900/70 hover:bg-white/60 active:scale-95 transition"
-                        onChange={() => handleSubmit}
                     >
                         <svg className="h-5 w-5 text-slate-400 shrink-0" viewBox="0 0 24 24" fill="none">
                             <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>

@@ -1,6 +1,6 @@
 import React from "react";
 
-export type Page = "home" | "history" | "stats" | "settings";
+export type Page = "home" | "history" | "stats" | "settings" | "address";
 export type SearchType = "address" | "hash" | "block";
 export type Language = "ru" | "en";
 

@@ -1,16 +1,11 @@
-interface FetchAccountDataParams {
-    testnet: boolean,
-    address: string
-}
+import { FetchAccountDataParams, AccountStatesResponse } from "./types/apiTypes"
 
-export const fetchAccountData = async (request: FetchAccountDataParams): Promise<string | null> => {
+export const fetchAccountData = async (request: FetchAccountDataParams): Promise<AccountStatesResponse | null> => {
     try{
         const response = await fetch(`https://${request.testnet? "testnet.": ""}toncenter.com/api/v3/accountStates?address=${request.address}&include_boc=true`)
-        if (response.ok) {
-            const data = await response.json()
-            return data
-        }
-        return "some error"
+        const data = await response.json()
+        if (response.ok) { return data }
+        return null
             
     }
     catch(ConnectionError){
