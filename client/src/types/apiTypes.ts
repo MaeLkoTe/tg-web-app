@@ -8,6 +8,6 @@ export type AccountStatesResponse = {
 }
 
 export interface FetchAccountDataParams {
-    testnet: boolean,
-    address: string
+    address: string,
+    testnet: boolean,    
 }

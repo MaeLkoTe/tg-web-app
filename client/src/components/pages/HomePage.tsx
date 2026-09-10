@@ -3,7 +3,6 @@ import { RecentSearchItem } from "../RecentSearchItem";
 import { HeaderContainer } from "../HeaderContainer";
 import { HomePageProps } from "../../types/types";
 import { MySwitchButton } from "../UI/button/MySwitchButton";
-import { fetchAccountData } from "../../api"
 import { Address } from "@ton/core";
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +12,7 @@ export const HomePage = ({ onChangePage, RECENT_SEARCHES_LIST }: HomePageProps) 
     const [errorText, setErrorText] = useState("")
     const navigate = useNavigate();
     
-    const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const address = inputField.trim();
@@ -68,7 +67,7 @@ export const HomePage = ({ onChangePage, RECENT_SEARCHES_LIST }: HomePageProps) 
 
     return (
         <div className="flex flex-col items-center">
-            <HeaderContainer height="h-[35vh]" title={<>ton<br/>explorer</>}/>
+            <HeaderContainer height="h-[35vh]" title={<>Ton<br/>Explorer</>}/>
             <form className="w-full px-4 -mt-8 z-10 relative" onSubmit={handleSubmit}>
                 <div className="mx-auto max-w-[90vw] flex items-center gap-3 rounded-full ring-1 px-4 py-3 glass-panel">
                     <input 
@@ -76,7 +75,7 @@ export const HomePage = ({ onChangePage, RECENT_SEARCHES_LIST }: HomePageProps) 
                         id="address-input"
                         type="text"
                         value={inputField}
-                        placeholder="Input addres"
+                        placeholder="Input address"
                         onChange={(e) => setInputField(e.target.value)}
                     />
 

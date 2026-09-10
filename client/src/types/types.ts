@@ -3,13 +3,15 @@ import React from "react";
 export type Page = "home" | "history" | "stats" | "settings" | "address";
 export type SearchType = "address" | "hash" | "block";
 export type Language = "ru" | "en";
+type TransactionType = "received" | "sent" | "deploy"
 
 export type RecentSearchesList = { 
     id: number,
     title: string, 
     value: string, 
     type: SearchType, 
-    timestamp: number}[]
+    timestamp: number
+}[]
 
 export interface NavItemProps {
     title: string;
@@ -59,4 +61,13 @@ export interface SettingsPageProps {
 export interface Settings {
     selectedLanguage: Language,
     isDarkMode: boolean
+}
+
+export interface TransactionProps{
+    transactionType: TransactionType, 
+    transactionDate: number,
+    transactionAmount: string,
+    transactionToken: string,
+    from: string,
+    to: string
 }

@@ -7,6 +7,38 @@ body {
 }
 
 @layer components {
+  .address-page {
+    @apply min-h-screen w-full overflow-hidden bg-slate-50 dark:bg-[#0B1121];
+    padding-bottom: calc(7rem + env(safe-area-inset-bottom));
+  }
+
+  .address-header {
+    @apply flex items-center gap-2 bg-gradient-to-r from-[#142765] via-[#6056c9] to-[#b88be4] px-4 py-3 text-white sm:px-6;
+  }
+
+  .address-layout {
+    @apply grid gap-6 p-4 sm:p-6 lg:grid-cols-[240px_minmax(0,1fr)];
+  }
+
+  .address-panel {
+    @apply rounded-xl border border-white bg-white shadow-md shadow-slate-900/10 dark:border-blue-800/50 dark:bg-slate-900 dark:shadow-black/20;
+  }
+
+  .transaction-list {
+    @apply relative space-y-4 lg:border-l lg:border-slate-200 lg:pl-5 dark:lg:border-blue-800;
+  }
+
+  .transaction-card {
+    @apply relative p-3 sm:p-4;
+  }
+
+  @media (min-width: 64rem) {
+    .transaction-card::before {
+      content: "";
+      @apply absolute -left-[27px] top-5 size-3 rounded-full border-2 border-slate-100 bg-white shadow-sm dark:border-blue-800 dark:bg-slate-700;
+    }
+  }
+
   /* 🎨 Универсальное стекло для форм, настроек и списков */
   .glass-panel {
     @apply bg-white/70 backdrop-blur-md ring-1 ring-white/60 shadow-lg shadow-black/10 transition-colors duration-300 dark:bg-blue-900/70 dark:ring-blue-800/40;
