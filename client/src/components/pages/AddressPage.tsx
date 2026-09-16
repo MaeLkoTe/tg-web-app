@@ -1,12 +1,20 @@
-import { AccountState } from "../../types/apiTypes"
-import { fetchAccountData } from "../../api"
+import { AccountState, AccountStatesResponse, Action } from "../../types/apiTypes"
+import { fetchAccountData, fetchActions } from "../../api/api"
 import { TransactionCard } from "../TransactionCard"
 
 import { useEffect, useState } from "react"
 import { useParams, useSearchParams } from "react-router-dom"
-import { fromNano } from "@ton/core"
+import { fromNano, Address } from "@ton/core"
 
-
+type ValidationResult =
+    {
+      success: true;
+      account: AccountState;
+    }
+  | {
+      success: false;
+      error: string;
+    };
 
 export const AddressPage = () => {
     const address = useParams().addressName
@@ -17,44 +25,129 @@ export const AddressPage = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>(null)
 
+    const [actions, setActions] = useState<Action[]>([])
+    const [actionsLoading, setaActionLoading] = useState<boolean>(false)
+    const [actionsError, setActionError] = useState<string | null>(null)
+
     const [inputField, setInputField] = useState<string>("")
+
+    const getTransactionType = (
+        action: Action,
+        currentAddress: string
+    ): "sent" | "received" | null => {
+        try {
+            const {parsedSourceAddress, parsedDestinationAddress, parsedAddress} = {
+                parsedSourceAddress: Address.parse(action.details.source),
+                parsedDestinationAddress: Address.parse(action.details.destination),
+                parsedAddress: Address.parse(currentAddress)
+            }
+            
+            if (parsedSourceAddress.equals(parsedAddress)) return "sent" 
+            else if (parsedDestinationAddress.equals(parsedAddress)) return "received"
+            return null
+        }
+        catch { return null }
+
+    };
+
+    const requestValidation = (data: AccountStatesResponse | null): ValidationResult => {
+        
+        if (data === null) return {
+            success: false,
+            error: "Неудачный запрос к API"
+        }
+        
+        else if (!data.accounts?.length) return {
+            success: false,
+            error: "Аккаунт не найден"
+        }
+
+        else if (data.address_book === undefined) return {
+            success: false,
+            error: "Адресс аккаунта не найден"
+        }
+        
+        const rawAddress = data.accounts[0].address
+        const userFriendlyAddress = data.address_book[rawAddress].user_friendly
+
+        return {
+            success: true,
+            account: {
+                address: userFriendlyAddress || rawAddress,
+                balance: data.accounts[0].balance
+            }
+        }
+    }
 
     useEffect(() => {
         let isActual = true;
 
-        const requestHandle = async () => {
+        const requestAccountHandle = async () => {
             if (address === undefined){
                 setError("Что-то пошло не так")
                 return
             }
+
             setLoading(true)
             setError(null)
             setAccount(null)
             const request = {address, testnet: boolTestnet}
             const data = await fetchAccountData(request)
+            console.log(data)
             
             if (isActual === false) return
 
-            if (data === null) {
-                setError("Неудачный запрос")
+            const validationResult = requestValidation(data)
+            if (validationResult.success === false) {
+                setError(validationResult.error)
                 setLoading(false)
                 return
-            }
-            else if (data?.accounts.length === 0) {
-                setError("Аккаунт не найден")
+            } else {
+                setAccount(validationResult.account)
                 setLoading(false)
-                return
             }
-
-            setAccount(data?.accounts[0])
-            setLoading(false)
         }
 
-        requestHandle();
+        requestAccountHandle();
 
         return () => {
             isActual = false
         };
+    }, [address, boolTestnet])
+
+    useEffect(() => {
+        let isActual = true;
+
+        const requestActionHandle = async () => {
+            if (address === undefined) { 
+                setActionError("Что-то пошло не так с транзакциями")
+                return
+             }
+            setaActionLoading(true);
+            setActionError(null);
+            setActions([])
+
+
+            const request = {address, testnet: boolTestnet}
+            const data = await fetchActions(request)
+
+            if (isActual === false) { return }
+
+            if (data === null) {
+                setActionError("Что-то пошло не так")
+                setaActionLoading(false)
+                return
+            }
+
+            setActions(data.actions)   
+            setaActionLoading(false) 
+        }
+
+        requestActionHandle();
+
+        return () => {
+            isActual = false
+        }
     }, [address, boolTestnet])
     return (
         <div>
@@ -77,7 +170,7 @@ export const AddressPage = () => {
                                         id="address-input"
                                         type="text"
                                         value={inputField}
-                                        placeholder="Enter address / hash / block"
+                                        placeholder="Enter address"
                                         aria-label="Адрес для поиска"
                                         onChange={(e) => setInputField(e.target.value)}
                                     />
@@ -106,16 +199,33 @@ export const AddressPage = () => {
                             </aside>
                             <section className="min-w-0" aria-labelledby="transaction-heading">
                                 <h2 id="transaction-heading" className="text-main mb-4 text-xs font-semibold uppercase tracking-wider">Transaction timeline</h2>
-                                <p className="text-muted mb-3 text-xs">Пример карточки · данные транзакций пока не подключены</p>
+                                <p className="text-muted mb-3 text-xs"></p>
                                 <div className="transaction-list">
-                                <TransactionCard 
-                                    transactionType={"sent"}
-                                    transactionDate={Date.now()}
-                                    transactionAmount={"2000"}
-                                    transactionToken="Gram"
-                                    from="Qua0..."
-                                    to="QE03m..."
-                                />
+                                    {actionsLoading && <p>Загрузка истории…</p>}
+
+                                    {actionsError && <p>{actionsError}</p>}
+
+                                    {!actionsLoading && !actionsError && (
+                                        actions.length > 0?
+                                            actions.map((item) => {
+                                                if (address === undefined) return null
+                                                const transactionType = getTransactionType(item, address)
+
+                                                if (transactionType === null) return null
+                                                
+                                                return (
+                                                    <TransactionCard 
+                                                        transactionType={transactionType}
+                                                        transactionDate={item.end_utime*1000}
+                                                        transactionAmount={fromNano(item.details.value)}
+                                                        transactionToken="Gram"
+                                                        from={Address.parse(item.details.source).toString()}
+                                                        to={Address.parse(item.details.destination).toString()}
+                                                    />
+                                            );
+                                        })
+                                        : <p>Список транзакций пустой</p>
+                                    )}
                                 </div>
                             </section>
                             </div>
