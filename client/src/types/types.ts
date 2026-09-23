@@ -5,13 +5,14 @@ export type SearchType = "address" | "hash" | "block";
 export type Language = "ru" | "en";
 type TransactionType = "received" | "sent" | "deploy"
 
-export type RecentSearchesList = { 
+export type RecentSearch = { 
     id: number,
     title: string, 
     value: string, 
     type: SearchType, 
-    timestamp: number
-}[]
+    timestamp: number,
+    testnet: boolean
+}
 
 export interface NavItemProps {
     title: string;
@@ -23,6 +24,8 @@ export interface NavItemProps {
 export interface RecentSearchProps {
     title: string;
     value: string;                  /*в будущем у этого будет тип address | block | hash и т.д.*/
+    testnet: boolean;
+    timestamp: number;
     onClick: () => void;
 }
 
@@ -35,11 +38,12 @@ export interface BottomNavProps extends NavigationProp {
 }
 
 export interface HomePageProps extends NavigationProp{
-    RECENT_SEARCHES_LIST: RecentSearchesList
+    RECENT_SEARCHES_LIST: RecentSearch[],
+    onAddRecentSearch: (address: string, testnet: boolean) => void;
 }
 
 export interface HistoryPageProp{
-    RECENT_SEARCHES_LIST: RecentSearchesList
+    RECENT_SEARCHES_LIST: RecentSearch[]
 }
 
 export interface HeaderContainerProps {

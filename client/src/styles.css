@@ -7,6 +7,35 @@ body {
 }
 
 @layer components {
+  .recent-search-list {
+    @apply mx-auto mt-6 flex w-full max-w-2xl flex-col gap-3 px-4;
+    padding-bottom: calc(7rem + env(safe-area-inset-bottom));
+  }
+
+  .recent-search-card {
+    @apply flex w-full items-center gap-3 rounded-2xl border border-slate-200/70 bg-white/80 p-4 text-left shadow-sm shadow-slate-900/5 backdrop-blur-md cursor-pointer transition-colors duration-200 hover:border-indigo-300 hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-indigo-500 dark:border-blue-800/50 dark:bg-blue-950/60 dark:hover:border-indigo-400/60 dark:hover:bg-blue-900/60;
+  }
+
+  .recent-search-icon {
+    @apply grid size-11 shrink-0 place-items-center rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-400/15 dark:text-indigo-300;
+  }
+
+  .recent-search-network {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[10px] font-semibold;
+  }
+
+  .recent-search-mainnet {
+    @apply bg-sky-50 text-sky-700 dark:bg-sky-400/10 dark:text-sky-300;
+  }
+
+  .recent-search-testnet {
+    @apply bg-amber-50 text-amber-700 dark:bg-amber-400/10 dark:text-amber-300;
+  }
+
+  .recent-search-arrow {
+    @apply grid size-8 shrink-0 place-items-center rounded-full text-slate-400 transition-colors group-hover:bg-indigo-50 group-hover:text-indigo-600 dark:text-blue-300/60 dark:group-hover:bg-indigo-400/15 dark:group-hover:text-indigo-200;
+  }
+
   .address-page {
     @apply min-h-screen w-full overflow-hidden bg-slate-50 dark:bg-[#0B1121];
     padding-bottom: calc(7rem + env(safe-area-inset-bottom));

@@ -1,8 +1,10 @@
 import { AccountState, AccountStatesResponse, Action } from "../../types/apiTypes"
 import { fetchAccountData, fetchActions } from "../../api/api"
 import { TransactionCard } from "../TransactionCard"
+import { validateTonAddress } from "../../utils/validateTonAddress"
 
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { useParams, useSearchParams } from "react-router-dom"
 import { fromNano, Address } from "@ton/core"
 
@@ -19,7 +21,7 @@ type ValidationResult =
 export const AddressPage = () => {
     const address = useParams().addressName
     const [testNetState, setTestnetState] = useSearchParams()
-    const boolTestnet = testNetState.get("testnet") === "true"
+    let boolTestnet = testNetState.get("testnet") === "true"
 
     const [account, setAccount] = useState<AccountState | null>(null)
     const [loading, setLoading] = useState<boolean>(false)
@@ -30,6 +32,33 @@ export const AddressPage = () => {
     const [actionsError, setActionError] = useState<string | null>(null)
 
     const [inputField, setInputField] = useState<string>("")
+    const [inputError, setInputError] = useState<string>("")
+    const navigate = useNavigate();
+
+    const handleTestnet = (e: React.MouseEvent) => {
+        e.preventDefault();
+        boolTestnet = !boolTestnet
+        console.log(boolTestnet)
+
+    }
+
+    const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+            e.preventDefault();
+    
+            const address = inputField.trim();
+            const validationError = validateTonAddress(address, boolTestnet);
+    
+            if (validationError !== null) {
+                setInputError(validationError);
+                return;
+            } else {
+                setInputError("")
+                navigate(`/address/${encodeURIComponent(address)}?testnet=${boolTestnet}`)
+                
+                console.log("Переход на страницу address")
+            }
+            setInputField("");
+        }
 
     const getTransactionType = (
         action: Action,
@@ -161,9 +190,9 @@ export const AddressPage = () => {
                             <header className="address-header">
                                 <span className="grid size-7 place-items-center rounded-full bg-cyan-400/25 text-cyan-100" aria-hidden="true">◇</span>
                                 <h1 className="text-sm font-semibold tracking-wide">Ton Explorer</h1>
-                                <span className="ml-auto rounded-full bg-white/15 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider">{boolTestnet ? "Testnet" : "Mainnet"}</span>
+                                <span onClick={handleTestnet} className="ml-auto rounded-full bg-white/15 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider cursor-pointer">{boolTestnet ? "Testnet" : "Mainnet"}</span>
                             </header>
-                            <form className="px-4 pt-4 sm:px-6" onSubmit={(event) => event.preventDefault()}>
+                            <form className="px-4 pt-4 sm:px-6" onSubmit={handleSubmit}>
                                 <div className="flex items-center gap-3 rounded-xl bg-slate-100/80 px-3 py-2 ring-1 ring-slate-200/60 focus-within:ring-indigo-400 dark:bg-blue-950/50 dark:ring-blue-800">
                                     <input 
                                         className="min-w-0 w-full bg-transparent text-sm outline-none text-main" 
@@ -185,11 +214,12 @@ export const AddressPage = () => {
                                         </svg>
                                     </button>
                                 </div>
+                                <p className="text-red-500 ml-[6vw] mt-2.5">{inputError}</p>
                             </form>
                             <div className="address-layout">
                             <aside className="min-w-0 space-y-3" aria-label="Данные аккаунта">
                                 <div className="address-panel p-4">
-                                    <h2 className="text-muted mb-2 text-[10px] font-medium uppercase tracking-widest">Address</h2>
+                                    <h2 className="text-muted mb-2 text-[10px] font-medium uppercase tracking-widest">{boolTestnet? "Testnet": ""} Address</h2>
                                     <p className="text-main break-all font-mono text-sm leading-relaxed">{account.address}</p>
                                 </div>
                                 <div className="address-panel p-4">
@@ -215,6 +245,7 @@ export const AddressPage = () => {
                                                 
                                                 return (
                                                     <TransactionCard 
+                                                        key={item.action_id}
                                                         transactionType={transactionType}
                                                         transactionDate={item.end_utime*1000}
                                                         transactionAmount={fromNano(item.details.value)}

@@ -1,12 +1,13 @@
 import React, {useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { RecentSearchItem } from "../RecentSearchItem";
 import { HeaderContainer } from "../HeaderContainer";
 import { HomePageProps } from "../../types/types";
 import { MySwitchButton } from "../UI/button/MySwitchButton";
-import { Address } from "@ton/core";
-import { useNavigate } from "react-router-dom";
+import { validateTonAddress } from "../../utils/validateTonAddress";
 
-export const HomePage = ({ onChangePage, RECENT_SEARCHES_LIST }: HomePageProps) => {
+export const HomePage = ({ onChangePage, RECENT_SEARCHES_LIST, onAddRecentSearch }: HomePageProps) => {
     const [inputField, setInputField] = useState("");
     const [testNetState, setTestNetState] = useState(false);
     const [errorText, setErrorText] = useState("")
@@ -23,41 +24,11 @@ export const HomePage = ({ onChangePage, RECENT_SEARCHES_LIST }: HomePageProps) 
             return;
         } else {
             setErrorText("")
+
+            onAddRecentSearch(address, testNetState);
             navigate(`/address/${encodeURIComponent(address)}?testnet=${testNetState}`)
             
             console.log("Переход на страницу address")
-        }
-    }
-
-    const validateTonAddress = function (
-        value: string,
-        testnet: boolean,
-    ): string | null {
-        const address = value.trim();
-
-        if (!address) {
-            return "Введите адрес";
-        }
-
-        try {
-            if (address.includes(":")) {
-                // Строго проверяем raw-формат перед разбором.
-                if (!/^-?\d+:[a-fA-F0-9]{64}$/.test(address)) {
-                    return "Некорректный raw-адрес";
-                }
-
-                Address.parseRaw(address);
-            } else {
-                const parsed = Address.parseFriendly(address);
-
-                if (parsed.isTestOnly && !testnet) {
-                    return "Это testnet-адрес. Включите testnet";
-                }
-            }
-
-            return null;
-        } catch {
-            return "Некорректный TON-адрес. Проверьте скопированное значение";
         }
     }
 
@@ -88,7 +59,7 @@ export const HomePage = ({ onChangePage, RECENT_SEARCHES_LIST }: HomePageProps) 
                         </svg>
                     </button>
                 </div>
-                <p className="ml-[6vw] mt-2.5">{errorText}</p>
+                <p className="text-red-500 ml-[6vw] mt-2.5">{errorText}</p>
 
                 <div className="mt-4 flex justify-center">
                     <label className="inline-flex items-center gap-3 rounded-full ring-1 px-4 py-2 cursor-pointer select-none glass-panel">
@@ -104,15 +75,19 @@ export const HomePage = ({ onChangePage, RECENT_SEARCHES_LIST }: HomePageProps) 
 
             </form>
 
+            <div className="recent-search-list">
             {RECENT_SEARCHES_LIST.map((item) => (
                 <RecentSearchItem
                     key={item.id}
                     title={item.title}
                     value={item.value}
-                    onClick={() => onChangePage("history")}
+                    testnet={item.testnet}
+                    timestamp={item.timestamp}
+                    onClick={() => navigate(`/address/${encodeURIComponent(item.value)}?testnet=${item.testnet}`)}
                 />
             )
             )}
+            </div>
         </div>
     );
 }

@@ -1,10 +1,10 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 import { HeaderContainer } from "../HeaderContainer"
 import { RecentSearchItem } from "../RecentSearchItem"
 import { HistoryPageProp, SearchType } from "../../types/types"
 import { MySelect } from "../UI/select/MySelect"
-
 
 const filterOptions: { value: string, label: string }[] = [
     { value: "all", label: "All" },
@@ -19,9 +19,9 @@ const sortOptions: { value: string, label: string }[] = [
 ]
 
 export const HistoryPage = ({ RECENT_SEARCHES_LIST }: HistoryPageProp) => {
-
     const [filterType, setFilterType] = useState<SearchType | "all">("all")
     const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest") 
+    const navigate = useNavigate();
 
     const filtredSearches = filterType !== "all" 
     ? (RECENT_SEARCHES_LIST.filter((item) => item.type === filterType)) 
@@ -49,15 +49,19 @@ export const HistoryPage = ({ RECENT_SEARCHES_LIST }: HistoryPageProp) => {
                 options={sortOptions}
             />
 
+            <div className="recent-search-list">
             {finalSearches.map((item) => (
                 <RecentSearchItem
                     key={item.id}
                     title={item.title}
                     value={item.value}
-                    onClick={() => {}}
+                    testnet={item.testnet}
+                    timestamp={item.timestamp}
+                    onClick={() => {navigate(`/address/${encodeURIComponent(item.value)}?testnet=${item.testnet}`)}}
                 />
             )
             )}
+            </div>
         </div>
     )
 }
