@@ -7,7 +7,7 @@ import { HomePageProps } from "../../types/types";
 import { MySwitchButton } from "../UI/button/MySwitchButton";
 import { validateTonAddress } from "../../utils/validateTonAddress";
 
-export const HomePage = ({ onChangePage, RECENT_SEARCHES_LIST, onAddRecentSearch }: HomePageProps) => {
+export const HomePage = ({ RECENT_SEARCHES_LIST, onAddRecentSearch }: HomePageProps) => {
     const [inputField, setInputField] = useState("");
     const [testNetState, setTestNetState] = useState(false);
     const [errorText, setErrorText] = useState("")
@@ -28,7 +28,6 @@ export const HomePage = ({ onChangePage, RECENT_SEARCHES_LIST, onAddRecentSearch
             onAddRecentSearch(address, testNetState);
             navigate(`/address/${encodeURIComponent(address)}?testnet=${testNetState}`)
             
-            console.log("Переход на страницу address")
         }
     }
 

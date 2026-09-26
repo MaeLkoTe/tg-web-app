@@ -1,4 +1,6 @@
+import { Address } from '@ton/core';
 import React from "react";
+import { NavigateOptions, To } from "react-router-dom";
 
 export type Page = "home" | "history" | "stats" | "settings" | "address";
 export type SearchType = "address" | "hash" | "block";
@@ -33,13 +35,13 @@ export interface NavigationProp {
     onChangePage: (page: Page) => void;
 }
 
-export interface BottomNavProps extends NavigationProp {
-    activePage: Page;
+export interface HomePageProps{
+    RECENT_SEARCHES_LIST: RecentSearch[],
+    onAddRecentSearch: (address: string, testnet: boolean) => void,
 }
 
-export interface HomePageProps extends NavigationProp{
-    RECENT_SEARCHES_LIST: RecentSearch[],
-    onAddRecentSearch: (address: string, testnet: boolean) => void;
+export interface AddressPageProps{
+    onAddRecentSearch: (address: string, testnet: boolean) => void,
 }
 
 export interface HistoryPageProp{

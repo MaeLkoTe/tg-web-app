@@ -1,4 +1,5 @@
 import { AccountState, AccountStatesResponse, Action } from "../../types/apiTypes"
+import { AddressPageProps } from "../../types/types"
 import { fetchAccountData, fetchActions } from "../../api/api"
 import { TransactionCard } from "../TransactionCard"
 import { validateTonAddress } from "../../utils/validateTonAddress"
@@ -18,10 +19,10 @@ type ValidationResult =
       error: string;
     };
 
-export const AddressPage = () => {
+export const AddressPage = ({onAddRecentSearch}: AddressPageProps) => {
     const address = useParams().addressName
     const [testNetState, setTestnetState] = useSearchParams()
-    let boolTestnet = testNetState.get("testnet") === "true"
+    const boolTestnet = testNetState.get("testnet") === "true"
 
     const [account, setAccount] = useState<AccountState | null>(null)
     const [loading, setLoading] = useState<boolean>(false)
@@ -33,12 +34,14 @@ export const AddressPage = () => {
 
     const [inputField, setInputField] = useState<string>("")
     const [inputError, setInputError] = useState<string>("")
+    const [searchTestnet, setSearchTestnet] = useState<boolean>(boolTestnet) 
     const navigate = useNavigate();
 
     const handleTestnet = (e: React.MouseEvent) => {
         e.preventDefault();
-        boolTestnet = !boolTestnet
-        console.log(boolTestnet)
+        
+        setSearchTestnet((prev) => !prev);
+        console.log(searchTestnet);
 
     }
 
@@ -46,16 +49,17 @@ export const AddressPage = () => {
             e.preventDefault();
     
             const address = inputField.trim();
-            const validationError = validateTonAddress(address, boolTestnet);
+            const validationError = validateTonAddress(address, searchTestnet);
     
             if (validationError !== null) {
                 setInputError(validationError);
                 return;
             } else {
                 setInputError("")
-                navigate(`/address/${encodeURIComponent(address)}?testnet=${boolTestnet}`)
+
+                onAddRecentSearch(address, searchTestnet);
+                navigate(`/address/${encodeURIComponent(address)}?testnet=${searchTestnet}`)
                 
-                console.log("Переход на страницу address")
             }
             setInputField("");
         }
@@ -190,7 +194,7 @@ export const AddressPage = () => {
                             <header className="address-header">
                                 <span className="grid size-7 place-items-center rounded-full bg-cyan-400/25 text-cyan-100" aria-hidden="true">◇</span>
                                 <h1 className="text-sm font-semibold tracking-wide">Ton Explorer</h1>
-                                <span onClick={handleTestnet} className="ml-auto rounded-full bg-white/15 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider cursor-pointer">{boolTestnet ? "Testnet" : "Mainnet"}</span>
+                                <button type="button" onClick={handleTestnet} className="ml-auto rounded-full bg-white/15 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider cursor-pointer">{searchTestnet ? "Testnet" : "Mainnet"}</button>
                             </header>
                             <form className="px-4 pt-4 sm:px-6" onSubmit={handleSubmit}>
                                 <div className="flex items-center gap-3 rounded-xl bg-slate-100/80 px-3 py-2 ring-1 ring-slate-200/60 focus-within:ring-indigo-400 dark:bg-blue-950/50 dark:ring-blue-800">

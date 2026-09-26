@@ -11,18 +11,22 @@ export const App = () => {
     };
 
     const [recentSearches, setRecentSearches] = useState<RecentSearch[]>(() => {
-        const savedValue = localStorage.getItem("recentSearches");
-        if (savedValue !== null){
-            return JSON.parse(savedValue)
-        }
-        return []
+        try {
+            const savedValue = localStorage.getItem("recentSearches");
+            if (savedValue !== null){
+                return JSON.parse(savedValue)
+            }
+            return []
+        } catch { return [] }
     });
     const [settings, setSettings] = useState<Settings>(() => {
-        const savedValue = localStorage.getItem("settings");
-        if (savedValue !== null){
-            return JSON.parse(savedValue)
-        }
-        return {isDarkMode: false, selectedLanguage: "en"}
+        try {
+            const savedValue = localStorage.getItem("settings");
+            if (savedValue !== null){
+                return JSON.parse(savedValue)
+            }
+            return {isDarkMode: false, selectedLanguage: "en"}
+        } catch {return {isDarkMode: false, selectedLanguage: "en"}}
     });
 
     const addRecentSearch = (address: string, testnet: boolean) => {
@@ -61,7 +65,6 @@ export const App = () => {
         <div>
             <Routes>
                 <Route path="/" element={<HomePage
-                                                onChangePage={pageNavigate}
                                                 RECENT_SEARCHES_LIST={recentSearches}
                                                 onAddRecentSearch={addRecentSearch}
                                             />}/>
@@ -69,7 +72,9 @@ export const App = () => {
                 <Route path="history" element={<HistoryPage RECENT_SEARCHES_LIST={recentSearches}/>}/>
                 <Route path="stats" element={<StatsPage></StatsPage>}/>
                 <Route path="settings" element={<SettingsPage settings={settings} setSettings={setSettings}/>}/> {/*в будущем это надо будет переделать - потому, что передавать дохуища пропсов в SettingsPage это пиздец полный - варианты: React Context API | Все настройки объеденить в один объект | Zustand?*/}
-                <Route path="address/:addressName" element={<AddressPage/>}/>
+                <Route path="address/:addressName" element={<AddressPage
+                                                                onAddRecentSearch={addRecentSearch}
+                                                            />}/>
             </Routes>
             <BottomNav onChangePage={pageNavigate}/>
             
