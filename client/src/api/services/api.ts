@@ -1,5 +1,6 @@
-import { FetchAccountDataParams, AccountStatesResponse, FetchActionsParams, ActionsResponse } from "../types/apiTypes"
-import { validateActionsResponse } from "./validation"
+import { FetchAccountDataParams, AccountStatesResponse, FetchActionsParams, ActionsResponse } from "../../types/apiTypes"
+import { validateActionsResponse } from "../validation"
+import { API_BASE_URL } from "../config";
 
 export const fetchAccountData = async (request: FetchAccountDataParams): Promise<AccountStatesResponse | null> => {
     const searchParams = new URLSearchParams({
@@ -8,7 +9,7 @@ export const fetchAccountData = async (request: FetchAccountDataParams): Promise
     })
     
     try{
-        const url = `http://127.0.0.1:8000/account_data?${searchParams.toString()}`
+        const url = `${API_BASE_URL}/account_data?${searchParams.toString()}`
         const response = await fetch(url, {
             method: "GET",
         });
@@ -32,7 +33,7 @@ export const fetchActions = async (request: FetchActionsParams): Promise<Actions
     })
 
     try {
-        const url = `http://127.0.0.1:8000/actions?${searchParams.toString()}`
+        const url = `${API_BASE_URL}/actions?${searchParams.toString()}`
         const response = await fetch(url, {
             method: "GET",
         });

@@ -64,4 +64,8 @@ export interface TokenInfo {
   valid?: boolean;
 }
 
+export type ChartPoint = [timestamp: number, price: number];
 
+export interface GramChartResponse {
+    points: ChartPoint[];
+}

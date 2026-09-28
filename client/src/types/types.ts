@@ -1,6 +1,4 @@
-import { Address } from '@ton/core';
-import React from "react";
-import { NavigateOptions, To } from "react-router-dom";
+import React from "react"
 
 export type Page = "home" | "history" | "stats" | "settings" | "address";
 export type SearchType = "address" | "hash" | "block";

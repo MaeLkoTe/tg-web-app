@@ -1,5 +1,7 @@
+import { API_BASE_URL } from "../config";
+
 export const fetchTonPrice = async (): Promise<number> =>  {
-    const url = `http://127.0.0.1:8000/ton_price`
+    const url = `${API_BASE_URL}/ton_price`
     const response = await fetch(url);
     if (response.ok) { 
         const data = await response.json(); 

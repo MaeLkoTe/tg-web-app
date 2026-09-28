@@ -1,6 +1,6 @@
 import { AccountState, AccountStatesResponse, Action } from "../../types/apiTypes"
 import { AddressPageProps } from "../../types/types"
-import { fetchAccountData, fetchActions } from "../../api/api"
+import { fetchAccountData, fetchActions } from "../../api/services/api"
 import { TransactionCard } from "../TransactionCard"
 import { validateTonAddress } from "../../utils/validateTonAddress"
 
