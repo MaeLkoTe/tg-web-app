@@ -2,14 +2,17 @@ import { FetchAccountDataParams, AccountStatesResponse, FetchActionsParams, Acti
 import { validateActionsResponse } from "./validation"
 
 export const fetchAccountData = async (request: FetchAccountDataParams): Promise<AccountStatesResponse | null> => {
+    const searchParams = new URLSearchParams({
+        address: request.address,
+        testnet: `${request.testnet}`
+    })
+    
     try{
-        const url = `https://${request.testnet? "testnet.": ""}toncenter.com/api/v3/accountStates?address=${request.address}&include_boc=true`
+        const url = `http://127.0.0.1:8000/account_data?${searchParams.toString()}`
         const response = await fetch(url, {
             method: "GET",
-            headers: {
-                "X-API-Key": "510137b1d341809fe298ed3bf486cd84e732b55a19f99c08e05cf4fa9a8e46cd"
-            }
         });
+
         if (response.ok) { 
             const data = await response.json(); 
             return data 
@@ -24,17 +27,16 @@ export const fetchAccountData = async (request: FetchAccountDataParams): Promise
 
 export const fetchActions = async (request: FetchActionsParams): Promise<ActionsResponse | null> => {
     const searchParams = new URLSearchParams({
-        account: request.address,
-        action_type: "ton_transfer"
+        address: request.address,
+        testnet: String(request.testnet)
     })
+
     try {
-        const url = `https://${request.testnet? "testnet.": ""}toncenter.com/api/v3/actions?${searchParams.toString()}`
+        const url = `http://127.0.0.1:8000/actions?${searchParams.toString()}`
         const response = await fetch(url, {
             method: "GET",
-            headers: {
-                "X-API-Key": "510137b1d341809fe298ed3bf486cd84e732b55a19f99c08e05cf4fa9a8e46cd"
-            }
         });
+
         if (!response.ok) {
             return null
         }
@@ -42,7 +44,6 @@ export const fetchActions = async (request: FetchActionsParams): Promise<Actions
         const rawData = await response.json() as unknown; 
         const validateData = validateActionsResponse(rawData);
         return validateData;
-
     }
 
     catch(ConnectionError){

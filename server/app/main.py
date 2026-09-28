@@ -2,6 +2,7 @@
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.services.tonapi import fetch_ton_price
+from app.services.toncenter import fetch_account_data, fetch_actions
 
 app = FastAPI()
 
@@ -22,3 +23,13 @@ async def health():
 async def get_ton_price():
     data = await fetch_ton_price()
     return { "price": data["rates"]["GRAM"]["prices"]["USD"] }
+
+@app.get("/account_data")
+async def get_account_data(address: str, testnet: bool = False):
+    data = await fetch_account_data(address=address, testnet=testnet)
+    return data 
+
+@app.get("/actions")
+async def get_account_actions(address: str, testnet: bool = False):
+    data = await fetch_actions(address=address, testnet=testnet)
+    return data

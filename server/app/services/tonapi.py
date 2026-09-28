@@ -2,7 +2,6 @@
 
 from app.config import settings
 
-
 async def fetch_ton_price() -> dict:
     async with httpx.AsyncClient(timeout=10.0) as client:
         url = "https://tonapi.io/v2/rates?tokens=gram&currencies=usd"

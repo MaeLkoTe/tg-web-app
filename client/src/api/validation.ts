@@ -1,7 +1,7 @@
 import { Action, ActionsResponse } from "../types/apiTypes"
 
 export const validateActionsResponse = (data: unknown): ActionsResponse | null => {
-    if (typeof data !== "object" || data === null) { return null }
+    if (typeof data !== "object" || data === null) { throw new Error("Response is not object") }
     else if (!("actions" in data) || !Array.isArray(data.actions)) { return null }
     else if (!data.actions.every(isTonTransfer)) { return null }
     return { actions: data.actions } 
