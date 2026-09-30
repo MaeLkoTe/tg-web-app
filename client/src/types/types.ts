@@ -1,4 +1,5 @@
 import React from "react"
+import { ChartPoint } from "./apiTypes";
 
 export type Page = "home" | "history" | "stats" | "settings" | "address";
 export type SearchType = "address" | "hash" | "block";
@@ -75,3 +76,7 @@ export interface TransactionProps{
     from: string,
     to: string
 }
+
+export type GramPriceChartProps = {
+    points: ChartPoint[];
+};

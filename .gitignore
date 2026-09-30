@@ -50,3 +50,6 @@ env/
 *.sqlite
 *.sqlite3
 *.db
+
+# Local agent skills
+/.agents/

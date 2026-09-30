@@ -1,10 +1,10 @@
 import { fetchTonPrice } from "../../api/services/fetchTonPrice";
 import { fetchGramChart } from "../../api/services/fetchGramChart";
+import { ChartPoint } from "../../types/apiTypes";
+import { HeaderContainer } from "../HeaderContainer";
 
 import { useEffect, useState } from "react"
-import { HeaderContainer } from "../HeaderContainer"
-import { ChartPoint } from "../../types/apiTypes";
-import { error } from "console";
+import { GramPriceChart } from "../GramPriceChart";
 
 type ChartState = 
     | { status: "loading" }
@@ -65,12 +65,17 @@ export const StatsPage = () => {
         <div>
             <HeaderContainer height="h-[20vh]" title="Statistics"/>
             
-            <div className="stats-container">
+            <main className="stats-container">
                 {/* Левая часть: Место под график */}
-                <div className="glass-panel chart-card">
-                    <span className="metric-label">{chartState.status === "error"? chartState.message: chartState.status}</span>
-                </div>
-
+                {chartState.status === "success" ? (
+                    <GramPriceChart points={chartState.data} />
+                ) : (
+                    <div className="glass-panel chart-card">
+                        <span className="metric-label">
+                            {chartState.status === "loading" ? "Загрузка графика…" : chartState.message}
+                        </span>
+                    </div>
+                )}
                 {/* Правая часть: Блок с данными */}
                 <div className="glass-panel metrics-card">
                     <div className="metric-row">
@@ -79,7 +84,7 @@ export const StatsPage = () => {
                                                         "Загрузка":
                                                             tonPriceError?
                                                             tonPriceError:
-                                                                "$"+tonPrice
+                                                                "$"+tonPrice?.toFixed(4)
                         }</span>
                     </div>
                     <div className="metric-row">
@@ -95,7 +100,7 @@ export const StatsPage = () => {
                         <span className="metric-value">354</span>
                     </div>
                 </div>
-            </div>
+            </main>
         </div>
     )
 }
